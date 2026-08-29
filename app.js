@@ -11,17 +11,17 @@ let copyTimeout = null;
 
 const translations = {
     'zh': {
-        app_title: "LLM 翻译器", lang_auto: "Auto", input_placeholder: "请输入您想要翻译的文字...", output_placeholder: "翻译结果将会显示在这里...", btn_translate: "翻译", btn_stop: "停止", status_thinking: "请稍等...", history_title: "历史记录", history_clear: "清空所有", history_empty: "暂无历史记录", history_clear_confirm: "确定要清空所有历史记录吗？", settings_title: "设置", setting_theme: "界面主题", setting_stream: "流式输出", setting_api_url: "API Base URL", setting_reset: "重置为默认值", setting_api_key: "API 密钥", setting_get_key: "获取 OpenAI API 密钥", key_placeholder: "sk-...", setting_model: "模型", model_custom: "自定义", custom_model_placeholder: "输入模型 ID", setting_temp: "模型温度", toast_settings_updated: "设置已更新", toast_translate_done: "翻译完成", toast_translate_abort: "翻译中止", alert_api_key: "请先在设置中配置 API 密钥", copy_fail: "复制失败"
+        app_title: "LLM 翻译器", lang_auto: "Auto", input_placeholder: "请输入您想要翻译的文字...", output_placeholder: "翻译结果将会显示在这里...", btn_translate: "翻译", btn_stop: "停止", status_thinking: "请稍等...", history_title: "历史记录", history_clear: "清空所有", history_empty: "暂无历史记录", history_clear_confirm: "确定要清空所有历史记录吗？", settings_title: "设置", setting_theme: "界面主题", setting_stream: "流式输出", setting_api_url: "API 地址", setting_api_key: "API 密钥", setting_model: "模型", setting_temp: "模型温度", toast_settings_updated: "设置已更新", toast_translate_done: "翻译完成", toast_translate_abort: "翻译中止", alert_api_key: "请先在设置中配置 API 密钥", copy_fail: "复制失败"
     },
     'zh-tw': {
-        app_title: "LLM 翻譯器", lang_auto: "Auto", input_placeholder: "請輸入您想要翻譯的文字...", output_placeholder: "翻譯結果將會顯示在這裡...", btn_translate: "翻譯", btn_stop: "停止", status_thinking: "請稍等...", history_title: "歷史記錄", history_clear: "清除所有", history_empty: "暫無歷史記錄", history_clear_confirm: "確定要清除所有歷史記錄嗎？", settings_title: "設定", setting_theme: "介面主題", setting_stream: "串流回應", setting_api_url: "API Base URL", setting_reset: "重設為預設值", setting_api_key: "API 金鑰", setting_get_key: "取得 OpenAI API 金鑰", key_placeholder: "sk-...", setting_model: "模型", model_custom: "自訂", custom_model_placeholder: "輸入模型 ID", setting_temp: "模型溫度", toast_settings_updated: "設定已更新", toast_translate_done: "翻譯完成", toast_translate_abort: "翻譯中止", alert_api_key: "請先在設定中配置 API 金鑰", copy_fail: "複製失敗"
+        app_title: "LLM 翻譯器", lang_auto: "Auto", input_placeholder: "請輸入您想要翻譯的文字...", output_placeholder: "翻譯結果將會顯示在這裡...", btn_translate: "翻譯", btn_stop: "停止", status_thinking: "請稍等...", history_title: "歷史記錄", history_clear: "清除所有", history_empty: "暫無歷史記錄", history_clear_confirm: "確定要清除所有歷史記錄嗎？", settings_title: "設定", setting_theme: "介面主題", setting_stream: "串流回應", setting_api_url: "API 主機位址", setting_api_key: "API 金鑰", setting_model: "模型", setting_temp: "模型溫度", toast_settings_updated: "設定已更新", toast_translate_done: "翻譯完成", toast_translate_abort: "翻譯中止", alert_api_key: "請先在設定中配置 API 金鑰", copy_fail: "複製失敗"
     },
     'en': {
-        app_title: "LLM Translator", lang_auto: "Auto", input_placeholder: "Enter text to translate...", output_placeholder: "Translation will appear here...", btn_translate: "Translate", btn_stop: "Stop", status_thinking: "Please wait...", history_title: "History", history_clear: "Clear All", history_empty: "No history yet", history_clear_confirm: "Are you sure you want to clear all history?", settings_title: "Settings", setting_theme: "Theme", setting_stream: "Streaming Output", setting_api_url: "API Base URL", setting_reset: "Reset Default", setting_api_key: "API Key", setting_get_key: "Get OpenAI API Key Here", key_placeholder: "sk-...", setting_model: "Model", model_custom: "Custom", custom_model_placeholder: "Enter Model ID", setting_temp: "Temperature", toast_settings_updated: "Settings Saved", toast_settings_unsaved: "Unsaved Changes", toast_translate_done: "Translation Done", toast_translate_abort: "Translation Aborted", alert_api_key: "Please configure API Key in settings first", copy_fail: "Copy Failed"
+        app_title: "LLM Translator", lang_auto: "Auto", input_placeholder: "Enter text to translate...", output_placeholder: "Translation will appear here...", btn_translate: "Translate", btn_stop: "Stop", status_thinking: "Please wait...", history_title: "History", history_clear: "Clear All", history_empty: "No history yet", history_clear_confirm: "Are you sure you want to clear all history?", settings_title: "Settings", setting_theme: "Theme", setting_stream: "Streaming Output", setting_api_url: "API Host", setting_api_key: "API Key", setting_model: "Model", setting_temp: "Temperature", toast_settings_updated: "Settings Saved", toast_settings_unsaved: "Unsaved Changes", toast_translate_done: "Translation Done", toast_translate_abort: "Translation Aborted", alert_api_key: "Please configure API Key in settings first", copy_fail: "Copy Failed"
     }
 };
 
-let config = { apiUrl: 'https://api.openai.com', apiKey: '', model: 'gpt-4o-mini', temperature: 0.1, stream: true, theme: 'auto' };
+let config = { apiUrl: 'https://api.openai.com', apiKey: '', model: '', temperature: 0, stream: true, theme: 'auto' };
 
 const langMap = { 'zh-CN': 'Simplified Chinese', 'zh-TW': 'Traditional Chinese', 'en': 'English', 'ja': 'Japanese', 'ko': 'Korean', 'fr': 'French', 'de': 'German', 'es': 'Spanish', 'ru': 'Russian', 'Auto': 'input language' };
 
@@ -111,7 +111,6 @@ function setupEventListeners() {
     document.getElementById('btn-clear-input').addEventListener('click', clearInput);
     document.getElementById('btn-copy-output').addEventListener('click', copyOutput);
     document.getElementById('btn-clear-history').addEventListener('click', clearHistory);
-    document.getElementById('btn-reset-url').addEventListener('click', resetUrl);
     document.getElementById('btn-theme').addEventListener('click', cycleTheme);
     
     const slider = document.getElementById('temp-slider');
@@ -120,7 +119,7 @@ function setupEventListeners() {
         updateSliderBackground(e.target);
     });
 
-    const settingInputs = ['api-url', 'api-key', 'model-select', 'stream-toggle', 'temp-slider', 'custom-model-input'];
+    const settingInputs = ['api-url', 'api-key', 'model-input', 'stream-toggle', 'temp-slider'];
     settingInputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -128,18 +127,6 @@ function setupEventListeners() {
             el.addEventListener('change', () => settingsDirty = true);
         }
     });
-
-    document.getElementById('model-select').addEventListener('change', (e) => {
-        settingsDirty = true;
-        toggleCustomModelInput();
-    });
-}
-
-function toggleCustomModelInput() {
-    const select = document.getElementById('model-select');
-    const customContainer = document.getElementById('custom-model-container');
-    if (select.value === 'custom') customContainer.classList.remove('hidden');
-    else customContainer.classList.add('hidden');
 }
 
 function updateBtnState(isTranslating) {
@@ -277,22 +264,15 @@ function loadConfig() {
     }
     document.getElementById('api-url').value = config.apiUrl;
     document.getElementById('api-key').value = config.apiKey;
-    document.getElementById('temp-slider').value = config.temperature;
-    document.getElementById('temp-display').innerText = config.temperature;
+    document.getElementById('model-input').value = config.model || '';
+    
+    const tempVal = (config.temperature !== undefined && config.temperature !== null) ? config.temperature : 0;
+    config.temperature = tempVal;
+    document.getElementById('temp-slider').value = tempVal;
+    document.getElementById('temp-display').innerText = tempVal;
+    
     document.getElementById('stream-toggle').checked = config.stream;
     applyTheme(config.theme || 'auto');
-
-    const modelSelect = document.getElementById('model-select');
-    const customInput = document.getElementById('custom-model-input');
-    const isPredefined = Array.from(modelSelect.options).some(opt => opt.value === config.model);
-
-    if (isPredefined) {
-        modelSelect.value = config.model;
-    } else {
-        modelSelect.value = 'custom';
-        customInput.value = config.model;
-    }
-    toggleCustomModelInput();
     updateSliderBackground(document.getElementById('temp-slider'));
 }
 
@@ -341,9 +321,7 @@ function saveConfigFromUI() {
     let url = document.getElementById('api-url').value.trim();
     config.apiUrl = url.replace(/\/+$/, "");
     config.apiKey = document.getElementById('api-key').value.trim();
-    const selectVal = document.getElementById('model-select').value;
-    if (selectVal === 'custom') config.model = document.getElementById('custom-model-input').value.trim() || 'gpt-4o-mini';
-    else config.model = selectVal;
+    config.model = document.getElementById('model-input').value.trim();
     config.temperature = parseFloat(document.getElementById('temp-slider').value);
     config.stream = document.getElementById('stream-toggle').checked;
     
@@ -352,11 +330,6 @@ function saveConfigFromUI() {
     }
 
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
-}
-
-function resetUrl() {
-    document.getElementById('api-url').value = "https://api.openai.com";
-    settingsDirty = true;
 }
 
 async function doTranslate() {
